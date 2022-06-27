@@ -2,12 +2,7 @@ function humanPlay(){
     const options = ['rock', 'papper', 'scissors'];
     const user = prompt('Enter rock, papper, scissors').toLowerCase();
 
-    if(options.includes(user)){
-        return user
-    }
-    else{
-        return 'input not valid';
-    }
+    return user;
 }
 
 function computerPlay(){
@@ -19,12 +14,12 @@ function singleRound(){
     const human = humanPlay();
     const computer = computerPlay();
 
-    return `human: ${human}, computer: ${computer} \n${winningConditions(human, computer)}`;
+    return winningConditions(human, computer);
 }
 
 function winningConditions(human, computer){
     if(human === computer){
-        return "It's a draw!";
+        return "draw";
     }
     else if(human === 'rock' && computer === 'papper'){
         return 'computer wins';
@@ -40,4 +35,34 @@ function winningConditions(human, computer){
     }
 }
 
-console.log(singleRound());
+function game(){
+    let humanWins = 0;
+    let computerWins = 0;
+
+    for(let i = 0; i < 3; i++){
+        let result = singleRound();
+        if(result === 'computer wins'){
+            computerWins++;
+            console.log(`Round ${i+1} goes to Computer`);
+        }
+        else if(result === 'human wins'){
+            humanWins++;
+            console.log(`Round ${i+1} goes to Human`);
+        }
+        else{
+            console.log('Its a draw');
+        }
+    }
+
+    if(computerWins>humanWins){
+        console.log('Computer is the winner');
+    }
+    else if(computerWins < humanWins){
+        console.log('You are the winner bb');
+    }
+    else{
+        console.log('Its a draaaw');
+    }
+}
+
+game();
