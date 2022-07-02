@@ -1,23 +1,18 @@
-function humanPlay(){
-    const options = ['rock', 'papper', 'scissors'];
-    const user = prompt('Enter rock, papper, scissors').toLowerCase();
-
-    return user;
-}
+const buttons = document.querySelectorAll('button');
+const gameWinnerPrompt = document.querySelector('.game-winner');
+const roundWinnerPrompt = document.querySelector('.round-winner');
+const score = document.querySelector('.score');
 
 function computerPlay(){
     const options = ['rock', 'papper', 'scissors'];
     return options[Math.floor(Math.random()*3)];
 }
 
-function singleRound(){
-    const human = humanPlay();
-    const computer = computerPlay();
-
-    return winningConditions(human, computer);
+function singleRound(human){
+    return winningConditions(human, computerPlay());
 }
 
-function winningConditions(human, computer){
+const winningConditions = (human, computer) => {
     if(human === computer){
         return "draw";
     }
@@ -34,35 +29,47 @@ function winningConditions(human, computer){
         return 'human wins';
     }
 }
+    
 
 function game(){
-    let humanWins = 0;
+    
     let computerWins = 0;
+    let humanWins = 0;
 
-    for(let i = 0; i < 3; i++){
-        let result = singleRound();
-        if(result === 'computer wins'){
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+        let roundWinner = winningConditions(button.id, computerPlay());
+
+        if(roundWinner === 'computer wins'){
             computerWins++;
-            console.log(`Round ${i+1} goes to Computer`);
         }
-        else if(result === 'human wins'){
+        else if(roundWinner === 'human wins'){
             humanWins++;
-            console.log(`Round ${i+1} goes to Human`);
         }
-        else{
-            console.log('Its a draw');
-        }
-    }
 
-    if(computerWins>humanWins){
-        console.log('Computer is the winner');
-    }
-    else if(computerWins < humanWins){
-        console.log('You are the winner bb');
-    }
-    else{
-        console.log('Its a draaaw');
-    }
+        if(computerWins === 3 || humanWins === 3){
+            const winner = computerWins>humanWins ? 'Computer' : 'Human';
+            roundWinnerPrompt.textContent = '';
+            gameWinnerPrompt.textContent = `${winner} is the Winner`;
+            buttons.forEach(button => {
+                button.style.display = 'none';
+        });
+       }else{
+        if(computerWins === 3 || humanWins === 3){
+        const winner = computerWins>humanWins ? 'Computer' : 'Human';
+        gameWinnerPrompt.textContent = `${winner} is the Winner`;
+        roundWinnerPrompt.textContent = '';
+        buttons.forEach(button => {
+            button.style.display = 'none';
+    });
+   }   roundWinnerPrompt.textContent = `${roundWinner} this round`;
+           score.textContent =`Human: ${humanWins} - Computer: ${computerWins}`;
+       }
+        
+       });
+    });
 }
 
-game();
+
+
+game(); 
