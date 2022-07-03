@@ -1,0 +1,36 @@
+body{
+  margin: 0;
+  padding: 0;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  color: #264653;
+
+}
+
+.game{
+display: flex;
+flex-direction: column;
+text-align: center;
+border: 2px solid #264653;
+padding: 5rem;
+}
+
+.game-winner{
+  font-weight: 700;
+}
+
+
+
+
+button{
+  padding: 1rem 2rem;
+  background-color: #264653;
+  border: solid 1px #e9c46a;
+  color: #e9c46a;
+  border-radius: 0.5rem;
+}
+
